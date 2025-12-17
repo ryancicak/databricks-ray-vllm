@@ -7,7 +7,7 @@ This project contains the `databricks-ray-vllm.py` notebook for running distribu
 ## Usage
 
 1.  **Import to Databricks:**
-    Import `databricks-ray-vllm.py` into your Databricks workspace as a Source file. Databricks will recognize it as a notebook.
+    Import `databricks-ray-vllm.ipynb` into your Databricks workspace. It is a standard Jupyter Notebook.
 
 2.  **Configuration:**
     -   **Model:** Qwen/Qwen3-4B-Instruct-2507 (Non-FP8 for A10 stability)
@@ -50,7 +50,7 @@ How the distributed inference pipeline works on Databricks Serverless GPUs:
 
 ## Key Files
 
--   `databricks-ray-vllm.py`: The main inference notebook source code.
+-   `databricks-ray-vllm.ipynb`: The main inference notebook source code.
 -   `qwen_inference.py`: A clean, simplified script version for testing.
 -   `requirements.txt`: Python dependencies.
 
