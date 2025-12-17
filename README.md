@@ -14,6 +14,40 @@ This project contains the `databricks-ray-vllm.py` notebook for running distribu
     -   **Infrastructure:** Serverless GPU (AWS A10s recommended)
     -   **Scaling:** Adjust `num_instances` and `@ray_launch(gpus=...)` to scale up.
 
+## Architecture
+
+How the distributed inference pipeline works on Databricks Serverless GPUs:
+
+```ascii
+                                    +-----------------------+
+                                    |   Databricks Driver   |
+                                    |      (Notebook)       |
+                                    +-----------+-----------+
+                                                |
+                                       @ray_launch(gpus=5)
+                                                |
+                                                v
+                                    +-----------------------+
+                                    |    Ray Head Node      |
+                                    |   (Serverless GPU)    |
+                                    |   - Ray Controller    |
+                                    |   - Data Scheduler    |
+                                    +------+----+----+------+
+                                           |    |    |
+                        +------------------+    |    +------------------+
+                        |                       |                       |
+            +-----------v-----------+ +---------v-----------+ +---------v-----------+
+            |     Ray Worker 1      | |     Ray Worker 2    | |     Ray Worker 5    |
+            |   (Serverless GPU)    | |   (Serverless GPU)  | |   (Serverless GPU)  |
+            +-----------------------+ +---------------------+ +---------------------+
+            |      vLLM Engine      | |     vLLM Engine     | |     vLLM Engine     |
+            |   (Qwen Model Copy)   | |  (Qwen Model Copy)  | |  (Qwen Model Copy)  |
+            +-----------+-----------+ +---------+-----------+ +---------+-----------+
+                        |                       |                       |
+                        v                       v                       v
+                 [Batch of 32]           [Batch of 32]           [Batch of 32]
+```
+
 ## Key Files
 
 -   `databricks-ray-vllm.py`: The main inference notebook source code.
