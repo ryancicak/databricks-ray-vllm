@@ -1,0 +1,6 @@
+ray[data]>=2.22.0
+vllm>=0.4.0
+serverless-gpu
+numpy
+packaging
+

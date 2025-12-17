@@ -1,0 +1,26 @@
+# Databricks Ray vLLM Inference
+
+This project contains the `databricks-ray-vllm.py` notebook for running distributed LLM inference on Databricks using Ray and vLLM.
+
+**Original Author:** [Puneet Jain](https://www.linkedin.com/in/puneetjain159/)
+
+## Usage
+
+1.  **Import to Databricks:**
+    Import `databricks-ray-vllm.py` into your Databricks workspace as a Source file. Databricks will recognize it as a notebook.
+
+2.  **Configuration:**
+    -   **Model:** Qwen/Qwen3-4B-Instruct-2507 (Non-FP8 for A10 stability)
+    -   **Infrastructure:** Serverless GPU (AWS A10s recommended)
+    -   **Scaling:** Adjust `num_instances` and `@ray_launch(gpus=...)` to scale up.
+
+## Key Files
+
+-   `databricks-ray-vllm.py`: The main inference notebook source code.
+-   `qwen_inference.py`: A clean, simplified script version for testing.
+-   `requirements.txt`: Python dependencies.
+
+## Notes
+
+-   **A10 Compatibility:** Uses `bfloat16` dtype for A10 GPUs.
+-   **Concurrency:** Ensure `num_instances` equals `gpus` for 1:1 mapping (max throughput).
