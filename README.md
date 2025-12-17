@@ -51,7 +51,6 @@ How the distributed inference pipeline works on Databricks Serverless GPUs:
 ## Key Files
 
 -   `databricks-ray-vllm.ipynb`: The main inference notebook source code.
--   `qwen_inference.py`: A clean, simplified script version for testing.
 -   `requirements.txt`: Python dependencies.
 
 ## Notes
